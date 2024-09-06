@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const DashboardLayout = () => {
+const Affirmations = () => {
   return (
     <View>
-      <Text>DashboardLayout</Text>
+      <Text>Affirmations</Text>
     </View>
   )
 }
 
-export default DashboardLayout
+export default Affirmations
