@@ -1,5 +1,5 @@
 import { View, Text, ImageBackground, Pressable } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AntDesign } from '@expo/vector-icons'
 import MEDITATION_IMAGES from '@/constants/meditation-images'
 import { MEDITATION_DATA, AUDIO_FILES } from '@/constants/MeditationData'
@@ -7,11 +7,15 @@ import AppGradient from '@/components/AppGradient'
 import { router, useLocalSearchParams } from 'expo-router'
 import CustomButton from '@/components/CustomButton'
 import { Audio } from 'expo-av'
+import { TimerContext } from '@/context/TimerContext'
 
 const Meditate = () => {
   const { id } = useLocalSearchParams()
 
-  const [secondsRemaining, setSecondsRemaining] = useState(10)
+  const { duration: secondsRemaining, setDuration: setSecondsRemaining } =
+    useContext(TimerContext)
+
+  // const [secondsRemaining, setSecondsRemaining] = useState(10)
   const [isMeditating, setIsMeditating] = useState(false)
   const [audioSound, setAudioSound] = useState<Audio.Sound>()
   const [isPlayingAudio, setIsPlayingAudio] = useState(false)
@@ -47,6 +51,7 @@ const Meditate = () => {
       if (audioSound) {
         audioSound?.unloadAsync()
       }
+      setSecondsRemaining(10)
     }
   }, [audioSound])
 
@@ -132,7 +137,7 @@ const Meditate = () => {
               onPress={handleAdjustDuration}
             />
             <CustomButton
-              title="Start Meditation"
+              title={isMeditating ? 'Stop' : 'Start Meditation'}
               onPress={toggleMeditationSessionStatus}
               containerStyles="mt-4"
             />
