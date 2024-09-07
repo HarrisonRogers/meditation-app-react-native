@@ -2,6 +2,7 @@ import { View, Text } from 'react-native'
 import { Slot, SplashScreen, Stack } from 'expo-router'
 import React, { useEffect } from 'react'
 import { useFonts } from 'expo-font'
+import TimerProvider from '@/context/TimerContext'
 
 // Prevent splash screen from auto hiding until all font assets
 SplashScreen.preventAutoHideAsync()
@@ -20,11 +21,17 @@ const RootLayout = () => {
   if (!fontsLoaded && !error) return null
 
   return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="meditate/[id]" options={{ headerShown: false }} />
-    </Stack>
+    <TimerProvider>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="meditate/[id]" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="(modal)/adjust-meditation-duration"
+          options={{ headerShown: false, presentation: 'modal' }}
+        />
+      </Stack>
+    </TimerProvider>
   )
 }
 

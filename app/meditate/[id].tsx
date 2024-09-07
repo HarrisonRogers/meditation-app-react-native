@@ -91,6 +91,12 @@ const Meditate = () => {
     return sound
   }
 
+  const handleAdjustDuration = () => {
+    if (isMeditating) toggleMeditationSessionStatus()
+
+    router.push('/(modal)/adjust-meditation-duration')
+  }
+
   // Format time left for two digits displayed
   const formattedTimeMinutes = String(
     Math.floor(secondsRemaining / 60)
@@ -122,8 +128,13 @@ const Meditate = () => {
 
           <View className="mb-5">
             <CustomButton
+              title="Adjust Duration"
+              onPress={handleAdjustDuration}
+            />
+            <CustomButton
               title="Start Meditation"
               onPress={toggleMeditationSessionStatus}
+              containerStyles="mt-4"
             />
           </View>
         </AppGradient>
